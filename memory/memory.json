@@ -1,0 +1,16 @@
+class Memory:
+
+    def save(self, key, value):
+        """
+        TODO:
+        Save to memory.json
+        """
+        print(f"Saving {key}...")
+
+    def load(self):
+        """
+        TODO:
+        Read memory.json
+        """
+        print("Loading memory...")
+        return {}

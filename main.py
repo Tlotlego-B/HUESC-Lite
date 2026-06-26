@@ -1,48 +1,19 @@
-import subprocess
-import sys
-import os
+from commands.router import process_command
+import logging
 
-APP_PATHS = {
-    "chrome": {
-        "win32": r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-        "darwin": "open -a 'Google Chrome'",
-        "linux": "google-chrome"
-    },
-    "spotify": {
-        "win32": r"C:\Users\tebai\AppData\Roaming\Spotify\Spotify.exe",
-        "darwin": "open -a Spotify",
-        "linux": "spotify"
-    },
-    "vsc": {
-        "win32": r"C:\Users\tebai\AppData\Local\Programs\Microsoft VS Code\Code.exe",
-        "darwin": "open -a 'Visual Studio Code'",
-        "linux": "code"
-    }
-}
+logging.basicConfig(filename="huesc.log", level=logging.INFO)
 
-def open_app(app_name):
-    app = app_name.lower().strip()
-    platform = sys.platform
+print("HUESC Advanced Initializing...")
 
-    if app not in APP_PATHS:
-        return f"Unknown app: '{app}'. Available: {', '.join(APP_PATHS.keys())}"
-
-    path = APP_PATHS[app].get(platform)
-
-    if not path:
-        return f"Platform '{platform}' not supported for {app}."
-
-    # Expand environment variables for Windows paths
-    if platform == "win32":
-        path = os.path.expandvars(path)
-
+while True:
     try:
-        if platform == "win32":
-            subprocess.Popen([path], shell=True)
-        else:
-            subprocess.Popen(path, shell=True)
-        return f"{app.capitalize()} launched successfully."
-    except FileNotFoundError:
-        return f"Executable not found for {app} at {path}"
-    except Exception as e:
-        return f"Failed to open {app}: {e}"
+        command = input("HUESC> ")
+        response = process_command(command)
+        print(response)
+        logging.info(f"Command: {command} | Response: {response}")
+
+        if command.lower() == "exit":
+            break
+    except KeyboardInterrupt:
+        print("\nExiting HUESC.")
+        break

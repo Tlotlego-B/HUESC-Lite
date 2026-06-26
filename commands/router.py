@@ -1,5 +1,7 @@
-from main import open_app          # import the launcher
-from commands.ai_chat import ai_chat
+from system.launcher import open_app
+from ai.chat import chat
+from plugins.plugins import load_plugins
+
 
 def process_command(command):
     command = command.strip()
@@ -7,7 +9,7 @@ def process_command(command):
 
     # Static commands
     static = {
-        "help": "Available commands: help, exit, status | open <app> | chat <message>",
+        "help": "Available commands: help, exit, status | open <app> | chat <message> | plugins",
         "status": "System is running.",
         "exit": "Exiting HUESC."
     }
@@ -15,14 +17,24 @@ def process_command(command):
     if lower in static:
         return static[lower]
     
-    # Open apps: "open chrome", "open spotify", "open code"
+    # Open apps
+
+    if lower.startswith("start "):
+        app_name = command[6:].strip()
+        return open_app(app_name)
+
     if lower.startswith("open "):
         app_name = command[5:].strip()
-        return open_app(app_name)   # <-- actually launch app
+        return open_app(app_name)
 
-    # AI Chat: "chat Hello, how are you?"
+    # AI Chat
     if lower.startswith("chat "):
         message = command[5:].strip()
-        return ai_chat(message)
-    
+        return chat(message)
+
+    # Plugin system
+    if lower.startswith("plugin "):
+        plugin_name = command[7:].strip()
+        return load_plugins(plugin_name)
+
     return "Unknown command. Type 'help' for a list of available commands."

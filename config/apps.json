@@ -1,0 +1,22 @@
+{
+    "chrome": {
+        "win32": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "darwin": "open -a 'Google Chrome'",
+        "linux": "google-chrome"
+    },
+    "spotify": {
+        "win32": "C:\\Users\\tebai\\AppData\\Roaming\\Spotify\\Spotify.exe",
+        "darwin": "open -a Spotify",
+        "linux": "spotify"
+    },
+    "vscode": {
+        "win32": "C:\\Users\\tebai\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        "darwin": "open -a 'Visual Studio Code'",
+        "linux": "code"
+    },
+    "notepad": {
+        "win32": "notepad.exe",
+        "darwin": "open -a TextEdit",
+        "linux": "gedit"
+    }
+}
